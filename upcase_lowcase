@@ -1,0 +1,58 @@
+#!/bin/sh
+## upcase_lowcase.sh for  in /home/alexis.zeghers/modules/shell/SHL_2016_shell
+## 
+## Made by Alexis Zeghers
+## Login   <alexis.zeghers@epitech.net>
+## 
+## Started on  Tue Jan  3 16:50:18 2017 Alexis Zeghers
+## Last update Tue Jan  3 23:25:15 2017 Alexis Zeghers
+##
+
+Usage()
+{
+    echo "USAGE: $0 -l -u" >&2
+    echo "-l : lowcase" >&2
+    echo "-u : upcase" >&2
+    exit 1
+}
+
+Error()
+{
+    echo "ERROR: $1 unknown option" >&2
+    exit 1
+}
+
+[ $# -lt 1 ] && Usage
+
+flag=0
+
+for i in $@
+do
+    if [[ $i == "-u" ]]
+    then
+	flag=1
+    elif [[ $i == "-l" ]]
+    then
+	flag=2
+    else
+	Error $i
+    fi
+done
+
+file=""
+while read input
+do
+    if [[ $file == "" ]]
+    then
+	file="$input"
+    else
+	file="$file\n$input"
+    fi
+done
+if [ $flag -eq 2 ]
+then
+    echo -e $file | tr '[:upper:]' '[:lower:]'
+else
+    echo -e $file | tr '[:lower:]' '[:upper:]'
+fi
+exit 0

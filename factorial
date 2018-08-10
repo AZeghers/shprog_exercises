@@ -1,0 +1,34 @@
+#!/bin/sh
+## factorial.sh for  in /home/alexis.zeghers/Modules/Shell/SHL_2016_shell
+## 
+## Made by Alexis Zeghers
+## Login   <alexis.zeghers@epitech.net>
+## 
+## Started on  Mon Jan  2 17:20:10 2017 Alexis Zeghers
+## Last update Tue Jan  3 17:37:03 2017 Alexis Zeghers
+##
+
+Usage()
+{
+    echo -e "USAGE: $0 number\nCompute factorial of a number" >&2
+    exit 1
+}
+
+Factorial()
+{
+    res=1
+    cur=1
+    max="$1"
+    while [[ $cur -le $max ]]
+    do
+	res=`expr $res \* $cur`
+	cur=`expr $cur + 1`
+    done
+    echo $res
+    exit 0
+}
+
+[ $# -ne 1 ] && Usage
+[[ $1 =~ ^[0-9]+$ ]] && Factorial $1
+echo "Error" >&2
+exit 1

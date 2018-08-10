@@ -1,0 +1,49 @@
+#!/bin/sh
+## replace for  in /home/samy.aitouakli/rendu/SHL_2016_shell
+## 
+## Made by Samy Aitouakli
+## Login   <samy.aitouakli@epitech.net>
+## 
+## Started on  Mon Jan  2 18:18:06 2017 Samy Aitouakli
+## Last update Tue Jan  3 17:38:02 2017 Samy Aitouakli
+##
+
+if [ $# -ne 3 ]
+then
+    echo "USAGE: $0 original_stringfile replace_stringfile file" >&2
+    echo "Replace in file each string of original_stringfile by replace_stringfile" >&2
+    exit 1
+fi
+[ ! -e $1 ] && exit 1
+[ ! -e $2 ] && exit 1
+[ ! -e $3 ] && exit 1
+orig=$1;
+replace=$2;
+file=$3;
+i=0;
+while read -r ligne_orig
+do
+    tab_orig[i]=$ligne_orig;
+    i=$(($i+1));
+done < "$orig"
+j=0;
+while read -r ligne_replace
+do
+    tab_replace[j]=$ligne_replace;
+    j=$(($j+1));
+done < "$replace";
+[ $i -gt $j ] && i=$(($i-1));
+[ $j -gt $i ] && i=$(($j-1));
+[ $i -eq $j ] && i=$(($i-1));
+
+while read -r str
+do
+    tmp=$i
+    while [ $tmp -gt -1 ]
+    do
+	str=`echo $str | sed "s/${tab_orig[$tmp]}/${tab_replace[$tmp]}/g"`
+	tmp=$(($tmp-1));
+    done
+    echo $str
+done < "$file"
+exit 0

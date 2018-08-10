@@ -1,0 +1,60 @@
+#!/bin/sh
+## primary.sh for  in /home/alexis.zeghers/Modules/Shell/SHL_2016_shell
+## 
+## Made by Alexis Zeghers
+## Login   <alexis.zeghers@epitech.net>
+## 
+## Started on  Mon Jan  2 23:55:11 2017 Alexis Zeghers
+## Last update Tue Jan  3 16:49:07 2017 Alexis Zeghers
+##
+
+Usage()
+{
+    echo -e "USAGE: $0 n\nDisplay n first primary number" >&2
+    exit 1
+}
+
+Error()
+{
+    echo "ERROR" >&2
+    exit 1
+}
+
+[[ $# -ne 1 ]] && Usage
+[[ $1 -lt 0 ]] && Error
+[[ $1 -eq 0 ]] && echo "" && exit 0
+
+max=$1
+currIndex=1
+currNb=3
+
+echo -n "2"
+
+while [[ $currIndex -lt $max ]]
+do
+    findIndex=1
+    isPrime=1
+    square=1
+    while [[ $square -lt $currNb ]]
+    do
+	findIndex=`expr $findIndex + 1`
+	if [[ `expr $currNb % $findIndex` -eq 0 ]]
+	then
+	    isPrime=0
+	    break
+	fi
+	square=`expr $findIndex \* $findIndex`
+    done
+    if [[ $isPrime -eq 1 ]]
+    then
+	if [[ $currIndex -ne $max ]]
+	then
+	    echo -n " "
+	fi
+	echo -n $currNb
+	currIndex=`expr $currIndex + 1`
+    fi
+    currNb=`expr $currNb + 1`
+done
+echo ""
+exit 0

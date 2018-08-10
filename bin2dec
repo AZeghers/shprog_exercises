@@ -1,0 +1,29 @@
+#!/bin/sh
+## test.sh for  in /home/alexis.zeghers/Modules/Shell/SHL_2016_shell
+## 
+## Made by Alexis Zeghers
+## Login   <alexis.zeghers@epitech.net>
+## 
+## Started on  Mon Jan  2 15:21:13 2017 Alexis Zeghers
+## Last update Tue Jan  3 21:53:07 2017 Alexis Zeghers
+##
+
+if [[ $# -eq 1 ]]
+then
+    if [[ $1 =~ ^[0-1]+$ ]]
+    then
+	echo "bin2dec($1)=$((2#$1))";
+	exit 0;
+    elif [[ $1 =~ ^-[0-1]+$ ]]
+    then
+	var=${1:1}
+	echo "bin2dec($1)=-$((2#$var))";
+	exit 0;
+    else
+	echo "Error" >&2;
+	exit 1;
+    fi
+else [[ $# -ne 1 ]]
+     echo -e "USAGE: $0 BinNumber\nConvert binary number to decimal number" >&2;
+     exit 1;
+fi
